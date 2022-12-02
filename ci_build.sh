@@ -61,41 +61,18 @@ Check the build status here: https://cloud.drone.io/viciouspup/kernel_realme_sdm
 curl -s -X POST https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendMessage -d text="Build started for revision ${DRONE_BUILD_NUMBER}" -d chat_id=338913217 -d parse_mode=HTML
 
 START=$(date +"%s")
+	# Make defconfig
 	make ARCH=arm64 \
 		O=${OUT_DIR} \
 		RMX1921_defconfig \
 		-j${KEBABS}
-	# Enable LLD
-	scripts/config --file ${OUT_DIR}/.config \
-		-e LTO \
-		-e LTO_CLANG \
-		-d SHADOW_CALL_STACK \
-		-e TOOLS_SUPPORT_RELR \
-		-e LD_LLD
-	# Make silentoldconfig
-	cd ${OUT_DIR}
-	make O=${OUT_DIR} \
-		ARCH=arm64 \
-		silentoldconfig \
-		-j${KEBABS}
-	cd ../
+
 	# Set compiler Path
 	PATH=${HOME}/ci_script/proton-clang/bin/:$PATH
 	make ARCH=arm64 \
 		O=${OUT_DIR} \
 		CC="clang" \
-		AR="llvm-ar" \
-		NM="llvm-nm" \
-		LD="ld.lld" \
-		STRIP="llvm-strip" \
-		OBJCOPY="llvm-objcopy" \
-		OBJDUMP="llvm-objdump" \
-		OBJSIZE="llvm-size" \
-		READELF="llvm-readelf" \
-		HOSTCC="clang" \
-		HOSTCXX="clang++" \
-		HOSTAR="llvm-ar" \
-		HOSTLD="ld.lld" \
+		CLANG_TRIPLE="aarch64-linux-gnu-" \
 		CROSS_COMPILE_ARM32="arm-linux-gnueabi-" \
 		CROSS_COMPILE="aarch64-linux-gnu-" \
 		-j${KEBABS}
