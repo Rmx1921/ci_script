@@ -61,7 +61,6 @@ Check the build status here: https://cloud.drone.io/viciouspup/kernel_realme_sdm
 curl -s -X POST https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendMessage -d text="Build started for revision ${DRONE_BUILD_NUMBER}" -d chat_id=338913217 -d parse_mode=HTML
 
 START=$(date +"%s")
-	else
 	# Make defconfig
 	make ARCH=arm64 \
 		O=${OUT_DIR} \
