@@ -80,7 +80,7 @@ START=$(date +"%s")
 		-j${KEBABS}
 	cd ../
 	# Set compiler Path
-	PATH=${HOME}/clang/bin/:$PATH
+	PATH=${HOME}/ci_script/proton-clang/bin/:$PATH
 	make ARCH=arm64 \
 		O=${OUT_DIR} \
 		CC="clang" \
