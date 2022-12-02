@@ -15,18 +15,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-cd /drone/src/
+pwd
+ls
 
 # Export Cross Compiler name
 	export COMPILER="ProtonClang-13.0"
-fi
 # Export Build username
 export KBUILD_BUILD_USER="Viciouspup"
-export KBUILD_BUILD_HOST="DroneCI"
+export KBUILD_BUILD_HOST="circleci"
 
 # Enviromental Variables
-pwd
 DATE=$(date +"%d.%m.%y")
 HOME="/drone/src/"
 OUT_DIR=out/
