@@ -107,11 +107,10 @@ DIFF=$(( END - START))
 # cd libufdt-master-utils/src
 #python mkdtboimg.py create /drone/src/out/arch/arm64/boot/dtbo.img /drone/src/out/arch/arm64/boot/dts/qcom/*.dtbo
 #cd ..
-#cd ..
-cp $(pwd)/${OUT_DIR}/arch/arm64/boot/Image.gz-dtb $(pwd)/anykernel/
-#cp $(pwd)/${OUT_DIR}/arch/arm64/boot/dtbo.img $(pwd)/anykernel/
+cd ..
+cp ${HOME}/ci_script/kernel_realme_sdm710/out/arch/arm64/boot/Image.gz-dtb ${HOME}/ci_script/Anykernel/
 
-cd anykernel
+cd Anykernel
 zip -r9 ${ZIPNAME} * -x .git .gitignore *.zip
 CHECKER=$(ls -l ${ZIPNAME} | awk '{print $5}')
 if (($((CHECKER / 1048576)) > 5)); then
