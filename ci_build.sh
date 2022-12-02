@@ -66,37 +66,13 @@ START=$(date +"%s")
 		O=${OUT_DIR} \
 		RMX1921_defconfig \
 		-j${KEBABS}
-	# Enable LLD
-	scripts/config --file ${OUT_DIR}/.config \
-		-e LTO \
-		-e LTO_CLANG \
-		-d SHADOW_CALL_STACK \
-		-e TOOLS_SUPPORT_RELR \
-		-e LD_LLD
-	# Make silentoldconfig
-	cd ${OUT_DIR}
-	make O=${OUT_DIR} \
-		ARCH=arm64 \
-		RMX1921_defconfig \
-		-j${KEBABS}
-	cd ../
+	
 	# Set compiler Path
-	PATH=${HOME}/ci_script/proton-clang/bin/:$PATH
+	PATH=${HOME}/clang/bin/:$PATH
 	make ARCH=arm64 \
 		O=${OUT_DIR} \
 		CC="clang" \
-		AR="llvm-ar" \
-		NM="llvm-nm" \
-		LD="ld.lld" \
-		STRIP="llvm-strip" \
-		OBJCOPY="llvm-objcopy" \
-		OBJDUMP="llvm-objdump" \
-		OBJSIZE="llvm-size" \
-		READELF="llvm-readelf" \
-		HOSTCC="clang" \
-		HOSTCXX="clang++" \
-		HOSTAR="llvm-ar" \
-		HOSTLD="ld.lld" \
+		CLANG_TRIPLE="aarch64-linux-gnu-" \
 		CROSS_COMPILE_ARM32="arm-linux-gnueabi-" \
 		CROSS_COMPILE="aarch64-linux-gnu-" \
 		-j${KEBABS}
