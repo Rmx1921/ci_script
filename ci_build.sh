@@ -26,7 +26,7 @@ export KBUILD_BUILD_HOST="circleci"
 
 # Enviromental Variables
 DATE=$(date +"%d.%m.%y")
-HOME="/drone/src/"
+HOME="/root/project/"
 OUT_DIR=out/
 if [[ "$@" =~ "lto"* ]]; then
 	VERSION="SPIRA-${TYPE}-LTO${DRONE_BUILD_NUMBER}-${DATE}"
@@ -76,47 +76,6 @@ START=$(date +"%s")
 		CROSS_COMPILE_ARM32="arm-linux-gnueabi-" \
 		CROSS_COMPILE="aarch64-linux-gnu-" \
 		-j${KEBABS}
-else
-	# Make defconfig
-	make ARCH=arm64 \
-		O=${OUT_DIR} \
-		RMX1921_defconfig \
-		-j${KEBABS}
-	# Enable LLD
-	scripts/config --file ${OUT_DIR}/.config \
-		-e LTO \
-		-e LTO_CLANG \
-		-d SHADOW_CALL_STACK \
-		-e TOOLS_SUPPORT_RELR \
-		-e LD_LLD
-	# Make silentoldconfig
-	cd ${OUT_DIR}
-	make O=${OUT_DIR} \
-		ARCH=arm64 \
-		RMX1921_defconfig \
-		-j${KEBABS}
-	cd ../
-	# Set compiler Path
-	PATH=${HOME}/proton-clang/bin/:$PATH
-	make ARCH=arm64 \
-		O=${OUT_DIR} \
-		CC="clang" \
-		AR="llvm-ar" \
-		NM="llvm-nm" \
-		LD="ld.lld" \
-		STRIP="llvm-strip" \
-		OBJCOPY="llvm-objcopy" \
-		OBJDUMP="llvm-objdump" \
-		OBJSIZE="llvm-size" \
-		READELF="llvm-readelf" \
-		HOSTCC="clang" \
-		HOSTCXX="clang++" \
-		HOSTAR="llvm-ar" \
-		HOSTLD="ld.lld" \
-		CROSS_COMPILE_ARM32="arm-linux-gnueabi-" \
-		CROSS_COMPILE="aarch64-linux-gnu-" \
-		-j${KEBABS}
-fi
 
 END=$(date +"%s")
 DIFF=$(( END - START))
