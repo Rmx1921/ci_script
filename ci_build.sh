@@ -15,8 +15,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-pwd
-ls
+
+cd /root/project/ci_script/kernel_realme_sdm710
 
 # Export Cross Compiler name
 	export COMPILER="ProtonClang-13.0"
@@ -34,7 +34,7 @@ else
 	VERSION="SPIRAL-${TYPE}-${DRONE_BUILD_NUMBER}-${DATE}"
 fi
 BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-KERNEL_LINK=https://github.com/viciouspup/kernel_realme_sdm710.git
+KERNEL_LINK=https://github.com/Rmx1921/kernel_realme_sdm710.git
 REF=`echo "$BRANCH" | grep -Eo "[^ /]+\$"`
 AUTHOR=`git log $BRANCH -1 --format="%an"`
 COMMIT=`git log $BRANCH -1 --format="%h / %s"`
@@ -110,7 +110,7 @@ elif [[ "$@" =~ "proton"* ]]; then
 		-j${KEBABS}
 	
 	# Set compiler Path
-	PATH=${HOME}/clang/bin/:$PATH
+	PATH=${HOME}/proton-clang/bin/:$PATH
 	make ARCH=arm64 \
 		O=${OUT_DIR} \
 		CC="clang" \
@@ -139,7 +139,7 @@ else
 		-j${KEBABS}
 	cd ../
 	# Set compiler Path
-	PATH=${HOME}/clang/bin/:$PATH
+	PATH=${HOME}/proton-clang/bin/:$PATH
 	make ARCH=arm64 \
 		O=${OUT_DIR} \
 		CC="clang" \
