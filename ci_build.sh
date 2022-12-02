@@ -92,6 +92,7 @@ CHECKER=$(ls -l ${ZIPNAME} | awk '{print $5}')
 if (($((CHECKER / 1048576)) > 5)); then
 	curl -s -X POST https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendMessage -d text="Kernel compiled successfully in $((DIFF / 60)) minute(s) and $((DIFF % 60)) seconds for SPIRAL" -d chat_id=338913217 -d parse_mode=HTML
 	curl -F chat_id="${CI_CHANNEL_ID}" -F document=@"$(pwd)/${ZIPNAME}" https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendDocument
+    ls
 else
 	curl -s -X POST https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendMessage -d text="Build Error!!" -d chat_id=338913217
 	exit 1;
