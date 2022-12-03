@@ -31,7 +31,7 @@ OUT_DIR=out/
 if [[ "$@" =~ "lto"* ]]; then
 	VERSION="SPIRA-${TYPE}-LTO${DRONE_BUILD_NUMBER}-${DATE}"
 else
-	VERSION="Spira-${DATE}"
+	VERSION="Spiral-${DATE}"
 fi
 BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
 KERNEL_LINK=https://github.com/Rmx1921/kernel_realme_sdm710.git
@@ -50,7 +50,7 @@ fi
 
 # Post to CI channel
 #curl -s -X POST https://api.telegram.org/bot${BOT_API_KEY}/sendPhoto -d photo=https://github.com/UtsavBalar1231/xda-stuff/raw/master/banner.png -d chat_id=${CI_CHANNEL_ID}
-curl -s -X POST https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendMessage -d text="<code>SPIRAL</code>
+curl -s -X POST https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendMessage -d text="<code>𝕊ℙ𝕀ℝ𝔸𝕃</code>
 Build: <code>${TYPE}</code>
 Device: <code>Realme XT(RMX1921)</code>
 Compiler: <code>${COMPILER}</code>
