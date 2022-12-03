@@ -21,7 +21,7 @@ cd /root/project/ci_script/kernel_realme_sdm710
 # Export Cross Compiler name
 	export COMPILER="ProtonClang-13.0"
 # Export Build username
-export KBUILD_BUILD_USER="Viciouspup"
+export KBUILD_BUILD_USER="Rmx1921"
 export KBUILD_BUILD_HOST="circleci"
 
 # Enviromental Variables
