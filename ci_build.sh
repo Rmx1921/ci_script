@@ -29,9 +29,9 @@ DATE=$(date +"%T.%d.%m.%y")
 HOME="/root/project/"
 OUT_DIR=out/
 if [[ "$@" =~ "lto"* ]]; then
-	VERSION="SPIRA-${TYPE}-LTO${DRONE_BUILD_NUMBER}-${DATE}"
+	VERSION="SPIRA-${TYPE}-LTO${CIRCLE_BUILD_NUM}-${DATE}"
 else
-	VERSION="Spiral-${DATE}"
+	VERSION="Spiral-${CIRCLE_BUILD_NUM}-${DATE}"
 fi
 BRANCH=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
 KERNEL_LINK=https://github.com/Rmx1921/kernel_realme_sdm710.git
