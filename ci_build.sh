@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cd /root/project/ci_script/kernel_realme_sdm710
+cd /home/project/ci_script/kernel_realme_sdm710
 
 # Export Cross Compiler name
 	export COMPILER="ProtonClang-13.0"
