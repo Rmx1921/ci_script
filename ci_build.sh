@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cd /home/project/ci_script/kernel_realme_sdm710
+cd /home/project/kernel_realme_sdm710
 
 # Export Cross Compiler name
 	export COMPILER="ProtonClang-13.0"
@@ -26,7 +26,7 @@ export KBUILD_BUILD_HOST="circleci"
 
 # Enviromental Variables
 DATE=$(date +"%d.%m.%y")
-HOME="/root/project/"
+HOME="/home/circleci/project/"
 OUT_DIR=out/
 if [[ "$@" =~ "lto"* ]]; then
 	VERSION="SPIRA-${TYPE}-LTO${CIRCLE_BUILD_NUM}-${DATE}"
@@ -68,7 +68,7 @@ START=$(date +"%s")
 		-j${KEBABS}
 
 	# Set compiler Path
-	PATH=${HOME}/ci_script/proton-clang/bin/:$PATH
+	PATH=${HOME}/proton-clang/bin/:$PATH
 	make ARCH=arm64 \
 		O=${OUT_DIR} \
 		CC="clang" \
@@ -80,18 +80,15 @@ START=$(date +"%s")
 END=$(date +"%s")
 DIFF=$(( END - START))
 # Import Anykernel3 folder
-# cd libufdt-master-utils/src
-#python mkdtboimg.py create /drone/src/out/arch/arm64/boot/dtbo.img /drone/src/out/arch/arm64/boot/dts/qcom/*.dtbo
-#cd ..
 cd ..
-cp ${HOME}/ci_script/kernel_realme_sdm710/out/arch/arm64/boot/Image.gz-dtb ${HOME}/ci_script/Anykernel/
+cp ${HOME}/kernel_realme_sdm710/out/arch/arm64/boot/Image.gz-dtb ${HOME}/Anykernel/
 
 cd Anykernel
 zip -r9 ${ZIPNAME} * -x .git .gitignore *.zip
 CHECKER=$(ls -l ${ZIPNAME} | awk '{print $5}')
 if (($((CHECKER / 1048576)) > 5)); then
 	curl -s -X POST https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendMessage -d text="Kernel compiled successfully in $((DIFF / 60)) minute(s) and $((DIFF % 60)) seconds for SPIRAL" -d chat_id=338913217 -d parse_mode=HTML
-	curl -F chat_id=338913217 -F document=@"${HOME}/ci_script/Anykernel/${ZIPNAME}" https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendDocument
+	curl -F chat_id=338913217 -F document=@"${HOME}/Anykernel/${ZIPNAME}" https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendDocument
 else
 	curl -s -X POST https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendMessage -d text="Build Error!!" -d chat_id=338913217
 	exit 1;
