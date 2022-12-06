@@ -56,9 +56,9 @@ Device: <code>Realme XT(RMX1921)</code>
 Compiler: <code>${COMPILER}</code>
 Branch: <code>$(git rev-parse --abbrev-ref HEAD)</code>
 Commit: <code>$MESSAGE</code>
-<i>Build started on Drone Cloud...</i>
+<i>Build started on Circle CI...</i>
 Check the build status here: https://circleci.com/gh/Rmx1921/kernel_realme_sdm710/${CIRCLE_BUILD_NUM}" -d chat_id=338913217 -d parse_mode=HTML
-curl -s -X POST https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendMessage -d text="Build started for revision ${DRONE_BUILD_NUMBER}" -d chat_id=338913217 -d parse_mode=HTML
+curl -s -X POST https://api.telegram.org/bot1445481247:AAFmjxDbbXAEFjAgYdyeVj6ZKAq-obPV_64/sendMessage -d text="Build started for revision ${CIRCLE_BUILD_NUM}" -d chat_id=338913217 -d parse_mode=HTML
 
 START=$(date +"%s")
 	# Make defconfig
