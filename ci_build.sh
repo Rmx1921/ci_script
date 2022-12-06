@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cd /home/project/kernel_realme_sdm710
+cd /home/circleci/project/kernel_realme_sdm710
 
 # Export Cross Compiler name
 	export COMPILER="ProtonClang-13.0"
